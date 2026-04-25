@@ -735,7 +735,7 @@ body {
 
 .portrait-puzzle-back-btn {
   position: absolute;
-  left: 30%;
+  left: 43%;
   bottom: 7%;
   width: 1.5%;
   z-index: 5;
@@ -763,7 +763,7 @@ body {
 
 .portrait-result-back-btn {
   position: absolute;
-  left: 48%;
+  left: 43%;
   bottom: 7%;
   width: 1.5%;
   z-index: 5;
