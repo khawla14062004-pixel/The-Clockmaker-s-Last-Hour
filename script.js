@@ -7,13 +7,17 @@ const screens = {
   portrait: document.getElementById("portrait-screen"),
   bookshelf: document.getElementById("bookshelf-screen"),
   booksCloseup: document.getElementById("books-closeup-screen"),
-  clockwatch: document.getElementById("clockwatch-screen"),
+   clockwatch: document.getElementById("clockwatch-screen"),
   boxPuzzle: document.getElementById("box-puzzle-screen"),
   clockPuzzle: document.getElementById("clock-puzzle-screen"),
   chestPuzzle: document.getElementById("chest-puzzle-screen"),
   watchshop: document.getElementById("watchshop-screen"),
   portraitPuzzle: document.getElementById("portrait-puzzle-screen"),
   portraitResult: document.getElementById("portrait-result-screen"),
+  booksPuzzle: document.getElementById("books-puzzle-screen"),
+  codePuzzle: document.getElementById("code-puzzle-screen"),
+  workshopOpen: document.getElementById("workshop-open-screen"),
+  codePuzzle: document.getElementById("code-puzzle-screen"),
   settings: document.getElementById("settings-screen")
 };
 
@@ -282,3 +286,70 @@ document.getElementById("portrait-result-back-btn").addEventListener("click", ()
   showScreen(screens.workshop);
 });
 
+
+books.forEach((book) => {
+  book.addEventListener("click", () => {
+    console.log("clicked");
+  });
+});
+
+document.getElementById("door-btn").addEventListener("click", () => {
+  showScreen(screens.workshopOpen);
+});
+
+document.getElementById("workshop-open-left-arrow-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
+
+document.getElementById("door-btn").addEventListener("click", () => {
+  showScreen(screens.codePuzzle);
+});
+
+document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
+
+document.getElementById("door-btn").addEventListener("click", () => {
+  showScreen(screens.codePuzzle);
+});
+
+document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
+
+const correctCode = "1752";
+let enteredCode = "";
+
+const codeBoxes = document.querySelectorAll(".code-box");
+const codeKeys = document.querySelectorAll(".code-key");
+
+function updateCodeDisplay() {
+  codeBoxes.forEach((box, index) => {
+    box.textContent = enteredCode[index] || "";
+  });
+}
+
+function resetCode() {
+  enteredCode = "";
+  updateCodeDisplay();
+}
+
+codeKeys.forEach((key) => {
+  key.addEventListener("click", () => {
+    const num = key.dataset.num;
+
+    enteredCode += num;
+    updateCodeDisplay();
+
+    if (!correctCode.startsWith(enteredCode)) {
+      setTimeout(resetCode, 300);
+      return;
+    }
+
+    if (enteredCode === correctCode) {
+      setTimeout(() => {
+        showScreen(screens.workshopOpen);
+      }, 300);
+    }
+  });
+});
