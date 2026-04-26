@@ -285,7 +285,48 @@ document.getElementById("portrait-puzzle-back-btn").addEventListener("click", ()
 document.getElementById("portrait-result-back-btn").addEventListener("click", () => {
   showScreen(screens.workshop);
 });
+let selectedBook = null;
 
+function shuffleBooks() {
+  const container = document.getElementById("books-puzzle");
+  let items = Array.from(container.children);
+  let solved = true;
+
+  while (solved) {
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j], items[i]];
+    }
+
+    solved = items.every((book, index) => Number(book.dataset.order) === index + 1);
+  }
+
+  container.innerHTML = "";
+  items.forEach(item => container.appendChild(item));
+}
+
+function swapBooks(bookA, bookB) {
+  const tempSrc = bookA.src;
+  const tempOrder = bookA.dataset.order;
+
+  bookA.src = bookB.src;
+  bookA.dataset.order = bookB.dataset.order;
+
+  bookB.src = tempSrc;
+  bookB.dataset.order = tempOrder;
+}
+
+function checkBooksSolved() {
+  const current = Array.from(document.querySelectorAll(".book-piece"));
+
+  const solved = current.every((book, index) => {
+    return Number(book.dataset.order) === index + 1;
+  });
+
+  if (solved) {
+    showScreen(screens.bookshelf);
+  }
+}
 const books = Array.from(document.querySelectorAll(".book-piece"));
 
 books.forEach((book) => {
