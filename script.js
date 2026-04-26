@@ -16,7 +16,6 @@ const screens = {
   portraitResult: document.getElementById("portrait-result-screen"),
   booksPuzzle: document.getElementById("books-puzzle-screen"),
   codePuzzle: document.getElementById("code-puzzle-screen"),
-  workshopOpen: document.getElementById("workshop-open-screen"),
   codePuzzle: document.getElementById("code-puzzle-screen"),
   settings: document.getElementById("settings-screen")
 };
@@ -352,11 +351,6 @@ document.getElementById("door-btn").addEventListener("click", () => {
   }
 });
 
-document.getElementById("workshop-open-left-arrow-btn").addEventListener("click", () => {
-  showScreen(screens.workshop);
-});
-
-
 document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
   showScreen(screens.workshop);
 });
@@ -397,7 +391,9 @@ codeKeys.forEach((key) => {
   workshopScreen.classList.add("open");
 
   setTimeout(() => {
-    showScreen(screens.workshop);
+    workshopScreen.classList.remove("closed");
+workshopScreen.classList.add("open");
+showScreen(screens.workshop);
   }, 300);
 }
   });
