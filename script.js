@@ -386,7 +386,7 @@ codeKeys.forEach((key) => {
 
     if (enteredCode === correctCode) {
       setTimeout(() => {
-        showScreen(screens.workshopOpen);
+        showScreen(screens.workshop);
       }, 300);
     }
   });
