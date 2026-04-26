@@ -285,6 +285,9 @@ document.getElementById("portrait-puzzle-back-btn").addEventListener("click", ()
 document.getElementById("portrait-result-back-btn").addEventListener("click", () => {
   showScreen(screens.workshop);
 });
+
+const books = Array.from(document.querySelectorAll(".book-piece"));
+
 let selectedBook = null;
 
 function shuffleBooks() {
@@ -327,14 +330,46 @@ function checkBooksSolved() {
     showScreen(screens.bookshelf);
   }
 }
-const books = Array.from(document.querySelectorAll(".book-piece"));
+
+books.forEach((book) => {
+  book.addEventListener("click", () => {
+    if (!selectedBook) {
+      selectedBook = book;
+      book.classList.add("selected");
+      return;
+    }
+
+    if (selectedBook === book) {
+      book.classList.remove("selected");
+      selectedBook = null;
+      return;
+    }
+
+    swapBooks(selectedBook, book);
+    selectedBook.classList.remove("selected");
+    selectedBook = null;
+
+    checkBooksSolved();
+  });
+});
+
+document.getElementById("books-puzzle-back-btn").addEventListener("click", () => {
+  showScreen(screens.bookshelf);
+});
+
+document.getElementById("portrait-puzzle-back-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
+
+document.getElementById("portrait-result-back-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
 
 books.forEach((book) => {
   book.addEventListener("click", () => {
     console.log("clicked");
   });
 });
-
 let doorUnlocked = false;
 
 const workshopScreen = document.getElementById("workshop-screen");
@@ -397,6 +432,31 @@ showScreen(screens.workshop);
   }, 300);
 }
   });
+});
+
+
+document.getElementById("door-btn").addEventListener("click", () => {
+  showScreen(screens.workshopOpen);
+});
+
+document.getElementById("workshop-open-left-arrow-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
+
+document.getElementById("door-btn").addEventListener("click", () => {
+  showScreen(screens.codePuzzle);
+});
+
+document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
+
+document.getElementById("door-btn").addEventListener("click", () => {
+  showScreen(screens.codePuzzle);
+});
+
+document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
 });
 
 
