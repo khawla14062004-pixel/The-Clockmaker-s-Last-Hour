@@ -777,3 +777,170 @@ body {
   width: 2.8%;
   z-index: 5;
 }
+
+/* BOOK PUZZLE */
+
+.books-puzzle-screen {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("assets/images/emptybookshelf.png"); /* ✅ YOUR IMAGE */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+/* books row */
+.books-puzzle {
+  position: absolute;
+  left: 24.5%;
+  top: 37%;
+  width: 37%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.2%;
+  z-index: 10;
+}
+
+/* each book */
+.book-piece {
+  width: 18.5%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* selection highlight */
+.book-piece.selected {
+  outline: 3px solid #ffd700;
+}
+
+
+/* back arrow */
+.books-puzzle-back-btn {
+  position: absolute;
+  left: 48%;
+  bottom: 7%;
+  width: 1.5%;
+  z-index: 5;
+}
+
+.workshop-open-screen {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("assets/images/workshop-main-open.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
+  position: relative;
+  overflow: hidden;
+}
+
+#door-btn {
+  position: absolute;
+  left: 59%;
+  top: 15%;
+  width: 20%;
+  height: 70%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.code-puzzle-screen {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("assets/images/code.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
+  position: relative;
+  overflow: hidden;
+}
+
+.code-puzzle-back-btn {
+  position: absolute;
+  left: 48%;
+  bottom: 7%;
+  width: 1.5%;
+  z-index: 5;
+}
+
+.code-puzzle-screen {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("assets/images/code.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
+  position: relative;
+  overflow: hidden;
+}
+
+.code-puzzle-back-btn {
+  position: absolute;
+  left: 48%;
+  bottom: 7%;
+  width: 1.5%;
+  z-index: 5;
+}
+.code-display {
+  position: absolute;
+  left: 39%;
+  top: 31%;
+  width: 19%;
+  height: 6%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 20;
+}
+
+.code-box {
+  width: 22%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #2b1608;
+  font-weight: 900;
+  font-size: 2rem;
+
+  background: transparent;   /* remove dark block */
+  text-shadow:
+    1px 1px 0 #f5d08a,
+   -1px -1px 0 #f5d08a;
+}
+
+.code-key {
+  position: absolute;
+  background: rgba(0,0,255,0.1); /* keep for debugging */
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* ROW 1 */
+.code-key[data-num="1"] { left: 38%; top: 38%; width: 6.5%; height: 7%; }
+.code-key[data-num="2"] { left: 45.5%; top: 38%; width: 6.5%; height: 7%; }
+.code-key[data-num="3"] { left: 53%; top: 38%; width: 6.5%; height: 7%; }
+
+/* ROW 2 */
+.code-key[data-num="4"] { left: 38%; top: 46%; width: 6.5%; height: 7%; }
+.code-key[data-num="5"] { left: 45.5%; top: 46%; width: 6.5%; height: 7%; }
+.code-key[data-num="6"] { left: 53%; top: 46%; width: 6.5%; height: 7%; }
+
+/* ROW 3 */
+.code-key[data-num="7"] { left: 38%; top: 54%; width: 6.5%; height: 7%; }
+.code-key[data-num="8"] { left: 45.5%; top: 54%; width: 6.5%; height: 7%; }
+.code-key[data-num="9"] { left: 53%; top: 54%; width: 6.5%; height: 7%; }
+
+/* ZERO */
+.code-key[data-num="0"] { left: 45.5%; top: 62%; width: 6.5%; height: 7%; }
