@@ -286,6 +286,7 @@ document.getElementById("portrait-result-back-btn").addEventListener("click", ()
   showScreen(screens.workshop);
 });
 
+const books = Array.from(document.querySelectorAll(".book-piece"));
 
 books.forEach((book) => {
   book.addEventListener("click", () => {
