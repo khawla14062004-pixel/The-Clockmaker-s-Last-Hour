@@ -164,7 +164,8 @@ document.getElementById("bookshelf-right-arrow-btn").addEventListener("click", (
 });
 
 document.getElementById("books-btn").addEventListener("click", () => {
-  showScreen(screens.booksCloseup);
+  showScreen(screens.booksPuzzle);
+  shuffleBooks();
 });
 
 document.getElementById("books-closeup-back-btn").addEventListener("click", () => {
@@ -336,24 +337,19 @@ books.forEach((book) => {
 });
 
 document.getElementById("door-btn").addEventListener("click", () => {
-  showScreen(screens.workshopOpen);
+  resetCode();
+  showScreen(screens.codePuzzle);
 });
 
 document.getElementById("workshop-open-left-arrow-btn").addEventListener("click", () => {
   showScreen(screens.workshop);
 });
 
-document.getElementById("door-btn").addEventListener("click", () => {
-  showScreen(screens.codePuzzle);
-});
 
 document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
   showScreen(screens.workshop);
 });
 
-document.getElementById("door-btn").addEventListener("click", () => {
-  showScreen(screens.codePuzzle);
-});
 
 document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
   showScreen(screens.workshop);
