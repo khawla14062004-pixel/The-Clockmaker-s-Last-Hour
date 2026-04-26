@@ -402,3 +402,12 @@ codeKeys.forEach((key) => {
 }
   });
 });
+
+
+document.getElementById("book-btn").addEventListener("click", () => {
+  showScreen(screens.book);
+});
+
+document.getElementById("back-from-book-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
