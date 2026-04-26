@@ -302,7 +302,7 @@ body {
   width: 100%;
   min-height: 100vh;
 
-  background-image: url("assets/images/workshop-main-open.png");
+  background-image: url("assets/images/workshop-background.png");
 
   background-size: cover;
   background-position: center;
@@ -310,6 +310,14 @@ body {
   background-color: black;
   position: relative;
   overflow: hidden;
+}
+
+.workshop-screen.closed {
+  background-image: url("assets/images/workshop-background.png");
+}
+
+.workshop-screen.open {
+  background-image: url("assets/images/workshop-main-open.png");
 }
 
 .image-btn {
