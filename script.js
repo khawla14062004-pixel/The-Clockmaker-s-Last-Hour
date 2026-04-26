@@ -336,17 +336,23 @@ books.forEach((book) => {
   });
 });
 
+let doorUnlocked = false;
+
+const workshopScreen = document.getElementById("workshop-screen");
+
+workshopScreen.classList.add("closed");
+workshopScreen.classList.remove("open");
+
 document.getElementById("door-btn").addEventListener("click", () => {
-  resetCode();
-  showScreen(screens.codePuzzle);
+  if (doorUnlocked) {
+    showScreen(screens.watchshop); // change this if your next room is different
+  } else {
+    resetCode();
+    showScreen(screens.codePuzzle);
+  }
 });
 
 document.getElementById("workshop-open-left-arrow-btn").addEventListener("click", () => {
-  showScreen(screens.workshop);
-});
-
-
-document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
   showScreen(screens.workshop);
 });
 
@@ -384,10 +390,15 @@ codeKeys.forEach((key) => {
       return;
     }
 
-    if (enteredCode === correctCode) {
-      setTimeout(() => {
-        showScreen(screens.workshop);
-      }, 300);
-    }
+   if (enteredCode === correctCode) {
+  doorUnlocked = true;
+
+  workshopScreen.classList.remove("closed");
+  workshopScreen.classList.add("open");
+
+  setTimeout(() => {
+    showScreen(screens.workshop);
+  }, 300);
+}
   });
 });
