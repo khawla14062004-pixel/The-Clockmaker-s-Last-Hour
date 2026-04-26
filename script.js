@@ -370,20 +370,25 @@ books.forEach((book) => {
     console.log("clicked");
   });
 });
-let doorUnlocked = false;
-
-const workshopScreen = document.getElementById("workshop-screen");
-
-workshopScreen.classList.add("closed");
-workshopScreen.classList.remove("open");
 
 document.getElementById("door-btn").addEventListener("click", () => {
-  if (doorUnlocked) {
-    showScreen(screens.watchshop); // change this if your next room is different
-  } else {
-    resetCode();
-    showScreen(screens.codePuzzle);
-  }
+  showScreen(screens.workshopOpen);
+});
+
+document.getElementById("workshop-open-left-arrow-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
+
+document.getElementById("door-btn").addEventListener("click", () => {
+  showScreen(screens.codePuzzle);
+});
+
+document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
+  showScreen(screens.workshop);
+});
+
+document.getElementById("door-btn").addEventListener("click", () => {
+  showScreen(screens.codePuzzle);
 });
 
 document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
@@ -419,51 +424,10 @@ codeKeys.forEach((key) => {
       return;
     }
 
-   if (enteredCode === correctCode) {
-  doorUnlocked = true;
-
-  workshopScreen.classList.remove("closed");
-  workshopScreen.classList.add("open");
-
-  setTimeout(() => {
-    workshopScreen.classList.remove("closed");
-workshopScreen.classList.add("open");
-showScreen(screens.workshop);
-  }, 300);
-}
+    if (enteredCode === correctCode) {
+      setTimeout(() => {
+        showScreen(screens.workshopOpen);
+      }, 300);
+    }
   });
-});
-
-
-document.getElementById("door-btn").addEventListener("click", () => {
-  showScreen(screens.workshopOpen);
-});
-
-document.getElementById("workshop-open-left-arrow-btn").addEventListener("click", () => {
-  showScreen(screens.workshop);
-});
-
-document.getElementById("door-btn").addEventListener("click", () => {
-  showScreen(screens.codePuzzle);
-});
-
-document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
-  showScreen(screens.workshop);
-});
-
-document.getElementById("door-btn").addEventListener("click", () => {
-  showScreen(screens.codePuzzle);
-});
-
-document.getElementById("code-puzzle-back-btn").addEventListener("click", () => {
-  showScreen(screens.workshop);
-});
-
-
-document.getElementById("book-btn").addEventListener("click", () => {
-  showScreen(screens.book);
-});
-
-document.getElementById("back-from-book-btn").addEventListener("click", () => {
-  showScreen(screens.workshop);
 });
