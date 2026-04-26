@@ -921,7 +921,6 @@ body {
 
 .code-key {
   position: absolute;
-  background: rgba(0,0,255,0.1); /* keep for debugging */
   border: none;
   cursor: pointer;
   z-index: 20;
