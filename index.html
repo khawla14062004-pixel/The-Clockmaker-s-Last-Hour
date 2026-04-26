@@ -107,7 +107,7 @@
   <button id="settings-btn" class="image-btn settings-btn settings-open-btn" aria-label="Settings">
   <img src="assets/images/settings-btn.png" alt="" />
 </button>
-
+<button id="door-btn"></button>
   <button id="left-arrow-btn" class="image-btn left-arrow-btn" aria-label="Go left">
     <img src="assets/images/left-arrow.png" alt="" />
   </button>
@@ -247,7 +247,50 @@
     <img src="assets/images/down-arrow.png" alt="" />
   </button>
 </section>
+<section id="books-puzzle-screen" class="screen hidden books-puzzle-screen">
+  <button id="books-puzzle-back-btn" class="image-btn books-puzzle-back-btn">
+    <img src="assets/images/down-arrow.png" />
+  </button>
 
+  <div id="books-puzzle" class="books-puzzle">
+    <img src="assets/images/book1-puzzle.png" class="book-piece" data-order="1" />
+    <img src="assets/images/book2-puzzle.png" class="book-piece" data-order="2" />
+    <img src="assets/images/book3-puzzle.png" class="book-piece" data-order="3" />
+    <img src="assets/images/book4-puzzle.png" class="book-piece" data-order="4" />
+    <img src="assets/images/book5-puzzle.png" class="book-piece" data-order="5" />
+  </div>
+</section>
+
+<section id="workshop-open-screen" class="screen hidden workshop-open-screen">
+  <button id="workshop-open-left-arrow-btn" class="image-btn left-arrow-btn">
+    <img src="assets/images/left-arrow.png" alt="" />
+  </button>
+</section>
+
+<section id="code-puzzle-screen" class="screen hidden code-puzzle-screen">
+  <button id="code-puzzle-back-btn" class="image-btn code-puzzle-back-btn">
+    <img src="assets/images/down-arrow.png" alt="" />
+  </button>
+
+  <div class="code-display">
+    <span class="code-box"></span>
+    <span class="code-box"></span>
+    <span class="code-box"></span>
+    <span class="code-box"></span>
+  </div>
+
+  <button class="code-key" data-num="1"></button>
+  <button class="code-key" data-num="2"></button>
+  <button class="code-key" data-num="3"></button>
+  <button class="code-key" data-num="4"></button>
+  <button class="code-key" data-num="5"></button>
+  <button class="code-key" data-num="6"></button>
+  <button class="code-key" data-num="7"></button>
+  <button class="code-key" data-num="8"></button>
+  <button class="code-key" data-num="9"></button>
+  <button class="code-key" data-num="0"></button>
+</section>
+    
   <script src="script.js"></script>
 </body>
 </html>
