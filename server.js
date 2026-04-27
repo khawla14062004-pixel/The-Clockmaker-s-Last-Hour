@@ -7,6 +7,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+// If your files are inside a "public" folder, keep this.
+// If index.html, style.css, script.js are in the root folder, change this to app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, "public")));
 
 const matches = new Map();
@@ -47,6 +49,8 @@ function allSolved(progress) {
 }
 
 io.on("connection", (socket) => {
+  console.log("Player connected:", socket.id);
+
   socket.on("create_match", () => {
     const code = generateCode();
 
@@ -165,19 +169,13 @@ io.on("connection", (socket) => {
       }
     });
   });
-});
-
-server.listen(3000, () => {
-  io.on("connection", (socket) => {
-  console.log("Player connected:", socket.id);
-
-  socket.on("create_match", () => {
-    const code = generateCode();
-    // ...
-  });
 
   socket.on("disconnect", () => {
     console.log("Player disconnected:", socket.id);
   });
 });
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
