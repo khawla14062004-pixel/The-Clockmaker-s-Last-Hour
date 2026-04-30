@@ -1,8 +1,88 @@
 document.addEventListener("DOMContentLoaded", () => {
   let socket = null;
-  if (typeof io !== "undefined") {
-    socket = io();
-  }
+    if (typeof io !== "undefined") {
+        socket = io();
+    }
+    
+    let musicVolume = Number(localStorage.getItem("musicVolume")) || 100;
+    let sfxVolume = Number(localStorage.getItem("sfxVolume")) || 100;
+    let uiVolume = Number(localStorage.getItem("uiVolume")) || 100;
+    
+    const finalMessagePopup = document.getElementById("final-message-popup");
+    const finalMessageText = document.getElementById("final-message-text");
+    const finalMessageCloseBtn = document.getElementById("final-message-close-btn");
+    
+    
+    function showFinalMessage(message) {
+      if (!finalMessagePopup || !finalMessageText) return;
+      finalMessageText.textContent = message;
+      finalMessagePopup.classList.remove("hidden");
+    }
+
+    function closeFinalMessage() {
+      if (finalMessagePopup) {
+        finalMessagePopup.classList.add("hidden");
+      }
+    }
+    
+    if (finalMessageCloseBtn) {
+      finalMessageCloseBtn.addEventListener("click", closeFinalMessage);
+    }
+
+    if (finalMessagePopup) {
+      finalMessagePopup.addEventListener("click", (e) => {
+        if (e.target === finalMessagePopup) {
+          closeFinalMessage();
+        }
+      });
+    }
+    
+      // ==========================
+      // AUDIO
+      // ==========================
+      const bgMusic = new Audio("assets/audio/background.mp3");
+      const clickSound = new Audio("assets/audio/click.mp3");
+      const puzzleSolvedSound = new Audio("assets/audio/doneWithPuzzle.mp3");
+      const lockedSound = new Audio("assets/audio/Locked.mp3");
+      const openChestSound = new Audio("assets/audio/OpenChest.mp3");
+
+      bgMusic.loop = true;
+
+      function applyAudioVolumes() {
+        bgMusic.volume = musicVolume / 100;
+        puzzleSolvedSound.volume = sfxVolume / 100;
+        lockedSound.volume = sfxVolume / 100;
+        openChestSound.volume = sfxVolume / 100;
+        clickSound.volume = uiVolume / 100;
+      }
+
+      function playSound(sound) {
+        if (!sound) return;
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+      }
+
+      function startBackgroundMusic() {
+        applyAudioVolumes();
+        bgMusic.play().catch(() => {});
+      }
+      
+      function unlockAudio() {
+        startBackgroundMusic();
+        document.removeEventListener("click", unlockAudio);
+        document.removeEventListener("touchstart", unlockAudio);
+      }
+
+      document.addEventListener("click", unlockAudio);
+      document.addEventListener("touchstart", unlockAudio);
+      
+      document.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", () => {
+          playSound(clickSound);
+        });
+      });
+
+    
 
   const screens = {
     start: document.getElementById("start-screen"),
@@ -429,6 +509,7 @@ function updateHintButton() {
 
     if (solved) {
       showScreen(screens.portraitResult);
+      playSound(puzzleSolvedSound);
     }
   }
 
@@ -471,6 +552,7 @@ function updateHintButton() {
     });
 
     if (solved) {
+      playSound(puzzleSolvedSound);
       showScreen(screens.bookshelf);
     }
   }
@@ -487,6 +569,8 @@ function completeBoxPuzzle() {
   boxSymbolButtons.forEach((button) => {
     button.disabled = true;
   });
+    
+    playSound(puzzleSolvedSound);
 
   if (symbolMessagePopup) {
     symbolMessagePopup.classList.remove("hidden");
@@ -541,6 +625,8 @@ if (symbolMessagePopup) {
 
     if (minuteOk && hourOk && !clockPuzzleState.solved) {
       clockPuzzleState.solved = true;
+      playSound(puzzleSolvedSound);
+        
       if (hourHand) hourHand.style.pointerEvents = "none";
       if (minuteHand) minuteHand.style.pointerEvents = "none";
 
@@ -806,28 +892,31 @@ addClickListener("game-settings-back-btn", () => {
     button.addEventListener("click", openSettings);
   });
 
-  const chestBtn = document.getElementById("chest-btn");
-  if (chestBtn) {
-    chestBtn.addEventListener("click", () => {
-      if (chestUnlocked) {
-        showScreen(screens.chestPuzzle);
-        return;
-      }
-
-      if (selectedItem === "key") {
-        chestUnlocked = true;
-        removeFromInventory("key");
-        selectedItem = null;
-        highlightSelectedSlot(-1);
-
-        if (clockwatchScreen) {
-          clockwatchScreen.classList.add("chest-open");
+    const chestBtn = document.getElementById("chest-btn");
+    if (chestBtn) {
+      chestBtn.addEventListener("click", () => {
+        if (chestUnlocked) {
+          showScreen(screens.chestPuzzle);
+          return;
         }
 
-        showScreen(screens.chestPuzzle);
-      }
-    });
-  }
+        if (selectedItem === "key") {
+          chestUnlocked = true;
+          removeFromInventory("key");
+          selectedItem = null;
+          highlightSelectedSlot(-1);
+
+          if (clockwatchScreen) {
+            clockwatchScreen.classList.add("chest-open");
+          }
+
+          playSound(openChestSound);
+          showScreen(screens.chestPuzzle);
+        } else {
+          playSound(lockedSound);
+        }
+      });
+    }
 
   addClickListener("chest-puzzle-back-btn", () => {
     showScreen(screens.clockwatch);
@@ -1235,20 +1324,19 @@ const musicValue = document.getElementById("music-value");
 const sfxValue = document.getElementById("sfx-value");
 const uiValue = document.getElementById("ui-value");
 
-let musicVolume = Number(localStorage.getItem("musicVolume")) || 100;
-let sfxVolume = Number(localStorage.getItem("sfxVolume")) || 100;
-let uiVolume = Number(localStorage.getItem("uiVolume")) || 100;
 
-if (musicSlider && musicValue) {
-  musicSlider.value = musicVolume;
-  musicValue.textContent = musicVolume;
+    if (musicSlider && musicValue) {
+      musicSlider.value = musicVolume;
+      musicValue.textContent = musicVolume;
 
-  musicSlider.addEventListener("input", () => {
-    musicVolume = Number(musicSlider.value);
-    musicValue.textContent = musicVolume;
-    localStorage.setItem("musicVolume", musicVolume);
-  });
-}
+      musicSlider.addEventListener("input", () => {
+        musicVolume = Number(musicSlider.value);
+        musicValue.textContent = musicVolume;
+        localStorage.setItem("musicVolume", musicVolume);
+        applyAudioVolumes();
+      });
+    }
+    
 
 addClickListener("winner-back-btn", () => {
   showScreen(screens.start);
@@ -1258,65 +1346,71 @@ addClickListener("loser-back-btn", () => {
   showScreen(screens.start);
 });
 
-if (sfxSlider && sfxValue) {
-  sfxSlider.value = sfxVolume;
-  sfxValue.textContent = sfxVolume;
+    if (sfxSlider && sfxValue) {
+      sfxSlider.value = sfxVolume;
+      sfxValue.textContent = sfxVolume;
 
-  sfxSlider.addEventListener("input", () => {
-    sfxVolume = Number(sfxSlider.value);
-    sfxValue.textContent = sfxVolume;
-    localStorage.setItem("sfxVolume", sfxVolume);
-  });
-}
+      sfxSlider.addEventListener("input", () => {
+        sfxVolume = Number(sfxSlider.value);
+        sfxValue.textContent = sfxVolume;
+        localStorage.setItem("sfxVolume", sfxVolume);
+        applyAudioVolumes();
+      });
+    }
 
-if (uiSlider && uiValue) {
-  uiSlider.value = uiVolume;
-  uiValue.textContent = uiVolume;
+    if (uiSlider && uiValue) {
+      uiSlider.value = uiVolume;
+      uiValue.textContent = uiVolume;
 
-  uiSlider.addEventListener("input", () => {
-    uiVolume = Number(uiSlider.value);
-    uiValue.textContent = uiVolume;
-    localStorage.setItem("uiVolume", uiVolume);
-  });
-}
+      uiSlider.addEventListener("input", () => {
+        uiVolume = Number(uiSlider.value);
+        uiValue.textContent = uiVolume;
+        localStorage.setItem("uiVolume", uiVolume);
+        applyAudioVolumes();
+      });
+    }
+    
+    applyAudioVolumes();
 
-function resetAllSettings() {
-  timerOn = true;
-  hintsOn = true;
-  timeLeft = 3600;
+    function resetAllSettings() {
+      timerOn = true;
+      hintsOn = true;
+      timeLeft = 3600;
 
-  musicVolume = 100;
-  sfxVolume = 100;
-  uiVolume = 100;
+      musicVolume = 100;
+      sfxVolume = 100;
+      uiVolume = 100;
 
-  localStorage.setItem("timerOn", "true");
-  localStorage.setItem("hintsOn", "true");
-  localStorage.setItem("timeLeft", "3600");
-  localStorage.setItem("musicVolume", "100");
-  localStorage.setItem("sfxVolume", "100");
-  localStorage.setItem("uiVolume", "100");
+      localStorage.setItem("timerOn", "true");
+      localStorage.setItem("hintsOn", "true");
+      localStorage.setItem("timeLeft", "3600");
+      localStorage.setItem("musicVolume", "100");
+      localStorage.setItem("sfxVolume", "100");
+      localStorage.setItem("uiVolume", "100");
 
-  updateTimerDisplay();
-  updateHintButton();
+      updateTimerDisplay();
+      updateHintButton();
 
-  if (timerBtn) timerBtn.textContent = "Timer: ON";
-  if (hintsBtn) hintsBtn.textContent = "Hints: ON";
+      if (timerBtn) timerBtn.textContent = "Timer: ON";
+      if (hintsBtn) hintsBtn.textContent = "Hints: ON";
 
-  if (musicSlider && musicValue) {
-    musicSlider.value = 100;
-    musicValue.textContent = "100";
-  }
+      if (musicSlider && musicValue) {
+        musicSlider.value = 100;
+        musicValue.textContent = "100";
+      }
 
-  if (sfxSlider && sfxValue) {
-    sfxSlider.value = 100;
-    sfxValue.textContent = "100";
-  }
+      if (sfxSlider && sfxValue) {
+        sfxSlider.value = 100;
+        sfxValue.textContent = "100";
+      }
 
-  if (uiSlider && uiValue) {
-    uiSlider.value = 100;
-    uiValue.textContent = "100";
-  }
-}
+      if (uiSlider && uiValue) {
+        uiSlider.value = 100;
+        uiValue.textContent = "100";
+      }
+
+      applyAudioVolumes();
+    }
 
 function clearRoomState() {
   currentRoomCode = null;
@@ -1467,6 +1561,8 @@ function placeChestGear(gear) {
 function onChestPuzzleSolved() {
   if (chestPuzzleSolved) return;
   chestPuzzleSolved = true;
+    
+  playSound(puzzleSolvedSound);
 
   console.log("Chest puzzle solved");
 
@@ -1485,6 +1581,7 @@ if (chestBackBtn) {
 
 function announceFinalResult(isCorrect) {
   if (isCorrect) {
+    playSound(puzzleSolvedSound);
     gameWon = true;
     showScreen(screens.winner);
 
@@ -1518,7 +1615,7 @@ function checkFinalDigitalClock() {
   if (finalPuzzleChances <= 0) {
     announceFinalResult(false);
   } else {
-    alert(`Wrong answer. You have ${finalPuzzleChances} chance${finalPuzzleChances === 1 ? "" : "s"} left.`);
+    showFinalMessage(`Incorrect time. ${finalPuzzleChances} attempt${finalPuzzleChances === 1 ? "" : "s"} remaining.`);
     finalHourInput.value = "";
     finalMinuteInput.value = "";
   }
@@ -1572,6 +1669,7 @@ function resetGame() {
   if (symbolMessagePopup) symbolMessagePopup.classList.add("hidden");
   if (hintPopup) hintPopup.classList.add("hidden");
   if (resetPopup) resetPopup.classList.add("hidden");
+  if (finalMessagePopup) finalMessagePopup.classList.add("hidden");
 
   resetCode();
   initChestPuzzle();
@@ -1607,5 +1705,3 @@ function resetGame() {
 initChestPuzzle();
 
 });
-
-
