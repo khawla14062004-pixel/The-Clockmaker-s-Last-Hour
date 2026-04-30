@@ -8,6 +8,28 @@
 </head>
 <body>
   <main>
+      <section id="symbol-puzzle-screen" class="screen hidden symbol-puzzle-screen">
+        <div class="symbol-puzzle-panel">
+          <div class="answer-row">
+            <div class="slot" data-index="0"><span></span></div>
+            <div class="slot" data-index="1"><span></span></div>
+            <div class="slot" data-index="2"><span></span></div>
+            <div class="slot" data-index="3"><span></span></div>
+            <div class="slot" data-index="4"><span></span></div>
+          </div>
+
+          <div class="button-row">
+            <button class="symbol-btn" type="button" data-symbol="star">★</button>
+            <button class="symbol-btn" type="button" data-symbol="moon">☾</button>
+            <button class="symbol-btn" type="button" data-symbol="gear">⚙</button>
+            <button class="symbol-btn" type="button" data-symbol="triangle">△</button>
+            <button class="symbol-btn" type="button" data-symbol="ring">◉</button>
+    </div>
+
+    <button id="symbol-clear-btn" type="button">Clear</button>
+    <p id="symbol-message"></p>
+  </div>
+</section>
     <section id="start-screen" class="screen active menu-screen">
   <div class="menu-overlay">
     <h1 class="game-title">THE CLOCKMAKER’S LAST HOUR</h1>
@@ -94,7 +116,7 @@
       <h2>How to Play</h2>
       <p>You and your partner must uncover the truth behind the clockmaker’s mysterious death.</p>
       <p>Solve puzzles, find clues, repair mechanisms, and restore the final clock.</p>
-      <button id="back-to-menu-btn">Back to Menu</button>
+      <button id="back-btn">Back</button>
       <button id="to-role-btn">Continue</button>
     </section>
 
@@ -107,14 +129,43 @@
 </section>
 
 
-<section id="workshop-screen" class="screen hidden workshop-screen">
-  <button id="settings-btn" class="image-btn settings-btn settings-open-btn" aria-label="Settings">
-  <img src="assets/images/settings-btn.png" alt="" />
-</button>
+<section id="game-settings-screen" class="screen hidden">
+  <div class="settings-panel">
+    <h2>Game Settings</h2>
+    <button id="timer-btn" class="settings-option-btn">Timer: ON</button>
+    <button id="hints-btn" class="settings-option-btn">Hints: ON</button>
+    <button id="reset-btn" class="settings-option-btn">Reset Progress</button>
+    <button id="game-settings-back-btn" class="settings-option-btn">Back</button>
+  </div>
+</section>
 
-  <button id="left-arrow-btn" class="image-btn left-arrow-btn" aria-label="Go left">
-    <img src="assets/images/left-arrow.png" alt="" />
+<section id="audio-settings-screen" class="screen hidden">
+  <div class="audio-settings-panel">
+    <h2>Audio Settings</h2>
+
+    <div class="audio-row">
+      <button class="audio-label-btn" type="button">Music</button>
+      <input id="music-slider" class="audio-slider" type="range" min="0" max="100" value="100" />
+      <span id="music-value" class="audio-value">100</span>
+    </div>
+
+    <div class="audio-row">
+      <button class="audio-label-btn" type="button">SFX</button>
+      <input id="sfx-slider" class="audio-slider" type="range" min="0" max="100" value="100" />
+      <span id="sfx-value" class="audio-value">100</span>
+    </div>
+
+
+    <button id="audio-settings-back-btn" class="settings-option-btn">Back</button>
+  </div>
+</section>
+
+
+<section id="workshop-screen" class="screen hidden workshop-screen">
+  <button id="workshop-settings-btn" class="image-btn settings-btn settings-open-btn" aria-label="Settings">
+    <img src="assets/images/settings-btn.png" alt="" />
   </button>
+
 
   <button id="right-arrow-btn" class="image-btn right-arrow-btn" aria-label="Go right">
     <img src="assets/images/right-arrow.png" alt="" />
@@ -127,6 +178,7 @@
   <button id="book-btn" class="image-btn book-btn" aria-label="Inspect book">
     <img src="assets/images/book1.png" alt="" />
   </button>
+  <button id="door-btn"></button>
 </section>
 
 <section id="portrait-puzzle-screen" class="screen hidden portrait-puzzle-screen">
@@ -193,6 +245,14 @@
     <img src="assets/images/settings-btn.png" alt="" />
   </button>
 
+   <div id="books-puzzle" class="books-puzzle">
+    <img src="assets/images/book1-puzzle.png" class="book-piece" data-order="1" />
+    <img src="assets/images/book2-puzzle.png" class="book-piece" data-order="2" />
+    <img src="assets/images/book3-puzzle.png" class="book-piece" data-order="3" />
+    <img src="assets/images/book4-puzzle.png" class="book-piece" data-order="4" />
+    <img src="assets/images/book5-puzzle.png" class="book-piece" data-order="5" />
+  </div>
+
   <button id="books-closeup-back-btn" class="image-btn books-closeup-back-arrow">
   <img src="assets/images/down-arrow.png" alt="" />
 </button>
@@ -206,9 +266,6 @@
     <img src="assets/images/left-arrow.png" alt="" />
   </button>
 
-  <button id="clockwatch-right-arrow-btn" class="image-btn clockwatch-right-arrow-btn">
-    <img src="assets/images/right-arrow.png" alt="" />
-  </button>
 
   <button id="box-btn"></button>
   <button id="clock-btn"></button>
@@ -219,21 +276,65 @@
   <button id="box-puzzle-settings-btn" class="image-btn settings-btn settings-open-btn">
     <img src="assets/images/settings-btn.png" alt="" />
   </button>
+  
 
-  <button id="box-puzzle-back-btn" class="image-btn box-puzzle-back-btn">
+  <button id="box-puzzle-back-btn" class="image-btn box-puzzle-back-btn" aria-label="Back">
     <img src="assets/images/down-arrow.png" alt="" />
   </button>
-</section>
+  
+  <button id="box-btn-1" class="box-symbol-btn" type="button" data-symbol="star" aria-label="Star"></button>
+    <button id="box-btn-2" class="box-symbol-btn" type="button" data-symbol="moon" aria-label="Moon"></button>
+    <button id="box-btn-3" class="box-symbol-btn" type="button" data-symbol="gear" aria-label="Gear"></button>
+    <button id="box-btn-4" class="box-symbol-btn" type="button" data-symbol="triangle" aria-label="Triangle"></button>
+    <button id="box-btn-5" class="box-symbol-btn" type="button" data-symbol="ring" aria-label="Ring"></button>
+    <p id="box-puzzle-message"></p>
+  </section>
+
+<div id="symbol-message-popup" class="symbol-message-popup hidden">
+  <img
+    id="symbol-message-image"
+    class="symbol-message-image"
+    src="assets/images/message.png"
+    alt="Puzzle message"
+    draggable="false"
+  />
+</div>
 
 <section id="clock-puzzle-screen" class="screen hidden clock-puzzle-screen">
-  <button id="clock-puzzle-settings-btn" class="image-btn settings-btn settings-open-btn">
+  <button id="clock-puzzle-settings-btn" class="image-btn settings-btn settings-open-btn" aria-label="Settings">
     <img src="assets/images/settings-btn.png" alt="" />
   </button>
 
   <button id="clock-puzzle-back-btn" class="image-btn clock-puzzle-back-btn">
     <img src="assets/images/down-arrow.png" alt="" />
   </button>
+  
+  <div id="clock-face-area" class="clock-face-area">
+      <img
+        id="hour-hand"
+        class="clock-hand hour-hand"
+        src="assets/images/hour-hand.png"
+        alt="Hour hand"
+        draggable="false"
+      />
+
+      <img
+        id="minute-hand"
+        class="clock-hand minute-hand"
+        src="assets/images/min-hand.png"
+        alt="Minute hand"
+        draggable="false"
+      />
+    </div>
+    <img
+    id="clock-key"
+    class="clock-key hidden"
+    src="assets/images/key.png"
+    alt="Key"
+    draggable="false"
+  />
 </section>
+
 <section id="chest-puzzle-screen" class="screen hidden chest-puzzle-screen">
 
   <button id="chest-puzzle-settings-btn" class="image-btn settings-btn settings-open-btn">
@@ -243,18 +344,95 @@
   <button id="chest-puzzle-back-btn" class="image-btn chest-puzzle-back-btn">
     <img src="assets/images/down-arrow.png" />
   </button>
+
+  <div id="chest-puzzle-board" class="chest-puzzle-board">
+
+    <div class="gear-target" data-gear="gear1"></div>
+    <div class="gear-target" data-gear="gear2"></div>
+    <div class="gear-target" data-gear="gear3"></div>
+    <div class="gear-target" data-gear="gear4"></div>
+    <div class="gear-target" data-gear="gear5"></div>
+    <div class="gear-target" data-gear="gear6"></div>
+
+    <img src="assets/images/gear1.png" alt="" class="gear-piece" id="gear1" draggable="false" />
+    <img src="assets/images/gear2.png" alt="" class="gear-piece" id="gear2" draggable="false" />
+    <img src="assets/images/gear3.png" alt="" class="gear-piece" id="gear3" draggable="false" />
+    <img src="assets/images/gear4.png" alt="" class="gear-piece" id="gear4" draggable="false" />
+    <img src="assets/images/gear5.png" alt="" class="gear-piece" id="gear5" draggable="false" />
+    <img src="assets/images/gear6.png" alt="" class="gear-piece" id="gear6" draggable="false" />
+  </div>
 </section>
 
 <section id="watchshop-screen" class="screen hidden watchshop-screen">
 
+  <img id="family-photo-item"
+       class="drawer-photo hidden"
+       src="assets/images/family-photo.png"
+       alt="Clockmaker and grandson" />
+       
   <button id="watchshop-settings-btn" class="image-btn settings-btn settings-open-btn">
     <img src="assets/images/settings-btn.png" />
   </button>
 
-  <button id="watchshop-left-arrow-btn" class="image-btn watchshop-left-arrow-btn">
-    <img src="assets/images/left-arrow.png" />
+  <button id="watchshop-right-arrow-btn" class="image-btn right-arrow-btn">
+    <img src="assets/images/right-arrow.png" />
   </button>
 
+  <button id="drawer-btn"></button>
+
+</section>
+
+<section id="family-photo-screen" class="screen hidden family-photo-screen">
+
+  <button id="family-photo-back-btn" class="image-btn portrait-back-btn">
+    <img src="assets/images/down-arrow.png" />
+  </button>
+
+  <img src="assets/images/family-photo.png" class="family-photo-full" />
+
+</section>
+  
+
+
+<section id="watchshop2-close-screen" class="screen hidden watchshop2-close-screen">
+  <button id="watchshop2-close-back-btn" class="image-btn bottom-arrow-btn">
+    <img src="assets/images/down-arrow.png" alt="">
+  </button>
+
+  <div class="final-screen-ui">
+    <p class="final-screen-title">ENTER THE TIME</p>
+
+    <div class="digital-clock-input-wrap">
+      <input id="final-hour-input" class="digital-clock-input" type="text" maxlength="2" />
+      <span class="digital-clock-colon">:</span>
+      <input id="final-minute-input" class="digital-clock-input" type="text" maxlength="2" />
+    </div>
+
+  </div>
+
+  <button id="confirm-knob-btn" class="confirm-knob"></button>
+</section>
+
+<section id="watchshop2-screen" class="screen hidden watchshop2-screen">
+
+  <button id="watchshop2-left-arrow-btn" class="image-btn left-arrow-btn">
+    <img src="assets/images/left-arrow.png" alt="" />
+  </button>
+
+  <button id="center-clock-btn"></button>
+
+</section>
+
+<section id="winner-screen" class="screen hidden winner-screen">
+  <button id="winner-back-btn" class="image-btn bottom-arrow-btn">
+    <img src="assets/images/down-arrow.png" alt="Back">
+  </button>
+</section>
+
+<section id="loser-screen" class="screen hidden loser-screen">
+  <button id="loser-back-btn" class="image-btn bottom-arrow-btn">
+    <img src="assets/images/down-arrow.png" alt="Back">
+  </button>
 </section>
 
 <section id="portrait-result-screen" class="screen hidden portrait-result-screen">
@@ -263,7 +441,90 @@
   </button>
 </section>
 
+<section id="books-puzzle-screen" class="screen hidden books-puzzle-screen">
+  
+  <button id="books-puzzle-back-btn" class="image-btn books-puzzle-back-btn">
+    <img src="assets/images/down-arrow.png" />
+  </button>
+
+
+</section>
+
+<section id="workshop-open-screen" class="screen hidden workshop-open-screen">
+
+  <button id="open-door-btn"></button>
+
+  <button id="workshop-open-right-arrow-btn" class="image-btn right-arrow-btn">
+    <img src="assets/images/right-arrow.png" alt="" />
+  </button>
+
+</section>
+
+<section id="code-puzzle-screen" class="screen hidden code-puzzle-screen">
+  <button id="code-puzzle-back-btn" class="image-btn code-puzzle-back-btn">
+    <img src="assets/images/down-arrow.png" alt="" />
+  </button>
+
+  <div class="code-display">
+    <span class="code-box"></span>
+    <span class="code-box"></span>
+    <span class="code-box"></span>
+    <span class="code-box"></span>
+  </div>
+
+
+
+  <button class="code-key" data-num="1"></button>
+  <button class="code-key" data-num="2"></button>
+  <button class="code-key" data-num="3"></button>
+  <button class="code-key" data-num="4"></button>
+  <button class="code-key" data-num="5"></button>
+  <button class="code-key" data-num="6"></button>
+  <button class="code-key" data-num="7"></button>
+  <button class="code-key" data-num="8"></button>
+  <button class="code-key" data-num="9"></button>
+  <button class="code-key" data-num="0"></button>
+</section>
+
+
+
+</main>
+
+<button id="hint-btn" class="image-btn hint-btn hidden" aria-label="Show hint">
+  <img src="assets/images/hint-btn.png" alt="Hint" />
+</button>
+
+<div id="hint-popup" class="hint-popup hidden">
+  <div class="hint-popup-content">
+    <button id="close-hint-btn" class="close-hint-btn" aria-label="Close hint">✕</button>
+    <img id="hint-image" src="" alt="Puzzle hint" />
+  </div>
+</div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="script.js"></script>
+
+<div id="inventory-bar" class="inventory-bar hidden">
+  <div class="inventory-slot" id="slot-1"></div>
+  <div class="inventory-slot" id="slot-2"></div>
+  <div class="inventory-slot" id="slot-3"></div>
+  <div class="inventory-slot" id="slot-4"></div>
+  <div class="inventory-slot" id="slot-5"></div>
+</div>
+
+<div id="timer-display" class="timer-display hidden">60:00</div>
+
+<div id="reset-popup" class="reset-popup hidden">
+  <div class="reset-box">
+    <h2>Reset progress?</h2>
+    <p>This will reset all your progress.</p>
+
+    <div class="reset-buttons">
+      <button id="reset-cancel-btn">Cancel</button>
+      <button id="reset-confirm-btn">OK</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
