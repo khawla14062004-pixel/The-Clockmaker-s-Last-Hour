@@ -517,7 +517,6 @@ body {
   position: relative;
   overflow: hidden;
 }
-
 .bookshelf-settings-btn {
   left: 0.6%;
   top: 1.2%;
@@ -536,7 +535,6 @@ body {
   cursor: pointer;
   z-index: 3;
 }
-
 .books-closeup-screen {
   width: 100%;
   min-height: 100vh;
@@ -1235,7 +1233,7 @@ body {
 .books-puzzle-screen {
   width: 100%;
   min-height: 100vh;
-  background-image: url("assets/images/books.png"); /* ✅ YOUR IMAGE */
+  background-image: url("assets/images/emptybookshelf.png"); /* ✅ YOUR IMAGE */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2148,3 +2146,51 @@ body {
   display: block;
   z-index: 20;
 }
+
+.final-message-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20000;
+}
+
+.final-message-popup.hidden {
+  display: none;
+}
+
+.final-message-box {
+  width: min(520px, 82vw);
+  padding: 28px 24px;
+  border-radius: 22px;
+  background: rgba(20, 12, 6, 0.95);
+  border: 2px solid rgba(124, 255, 99, 0.35);
+  box-shadow: 0 0 24px rgba(124, 255, 99, 0.12);
+  text-align: center;
+}
+
+#final-message-text {
+  margin: 0 0 22px;
+  color: #7cff63;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  text-shadow: 0 0 8px rgba(124, 255, 99, 0.2);
+}
+
+#final-message-close-btn {
+  padding: 12px 28px;
+  border: 1px solid rgba(124, 255, 99, 0.45);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #7cff63;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+#final-message-close-btn:hover {
+  background: rgba(124, 255, 99, 0.08);
+}
+
+
