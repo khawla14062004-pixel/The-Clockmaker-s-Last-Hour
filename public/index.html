@@ -155,6 +155,11 @@
       <span id="sfx-value" class="audio-value">100</span>
     </div>
 
+    <div class="audio-row">
+      <button class="audio-label-btn" type="button">UI</button>
+      <input id="ui-slider" class="audio-slider" type="range" min="0" max="100" value="100" />
+      <span id="ui-value" class="audio-value">100</span>
+    </div>
 
     <button id="audio-settings-back-btn" class="settings-option-btn">Back</button>
   </div>
@@ -253,6 +258,7 @@
     <img src="assets/images/book5-puzzle.png" class="book-piece" data-order="5" />
   </div>
 
+  
   <button id="books-closeup-back-btn" class="image-btn books-closeup-back-arrow">
   <img src="assets/images/down-arrow.png" alt="" />
 </button>
@@ -446,8 +452,6 @@
   <button id="books-puzzle-back-btn" class="image-btn books-puzzle-back-btn">
     <img src="assets/images/down-arrow.png" />
   </button>
-
-
 </section>
 
 <section id="workshop-open-screen" class="screen hidden workshop-open-screen">
@@ -523,6 +527,13 @@
       <button id="reset-cancel-btn">Cancel</button>
       <button id="reset-confirm-btn">OK</button>
     </div>
+  </div>
+</div>
+
+<div id="final-message-popup" class="final-message-popup hidden">
+  <div class="final-message-box">
+    <p id="final-message-text"></p>
+    <button id="final-message-close-btn">OK</button>
   </div>
 </div>
 
