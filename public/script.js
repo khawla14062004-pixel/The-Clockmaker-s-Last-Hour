@@ -776,10 +776,12 @@ addClickListener("start-btn", () => {
 addClickListener("back-from-host-btn", () => {
   showScreen(screens.start);
 });
-  
-  addClickListener("instructions-btn", () => {
-    showScreen(screens.instructions);
-  });
+
+
+addClickListener("instructions-btn", () => {
+  showScreen(screens.instructions);
+});
+
 
 addClickListener("back-btn", () => {
   showScreen(screens.start);
@@ -1707,4 +1709,13 @@ function resetGame() {
 
 initChestPuzzle();
 
+});
+
+
+
+const backBtn = document.getElementById("back-btn");
+
+backBtn.addEventListener("click", () => {
+  instructionsScreen.classList.add("hidden");
+  document.getElementById("start-screen").classList.remove("hidden");
 });
