@@ -773,7 +773,10 @@ addClickListener("start-btn", () => {
   }
 });
 
-
+addClickListener("back-from-host-btn", () => {
+  showScreen(screens.start);
+});
+  
   addClickListener("instructions-btn", () => {
     showScreen(screens.instructions);
   });
